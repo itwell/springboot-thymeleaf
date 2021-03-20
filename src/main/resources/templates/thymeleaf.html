@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thymeleaf demo</title>
+</head>
+<body>
+    <table>
+        <p th:text=" ${description}" >...</p>
+        <p th:text=" #{language}" >...</p>
+        <p th:text="'hello'" >...</p>
+        <p th:text="123456" >...</p>
+        <p th:text="123456+1" >...</p>
+        <p th:if="1<2 == true" >真</p>
+        <p th:if="1<2 == true" >真</p>
+
+
+        <div th:object="${book}">
+            <span th:text="*{title}"></span>
+        </div>
+
+
+        <form action="#" th:action="@{/user}" method="get">
+            <input type="text" th:name="nickname">
+            <input type="submit" value="提交">
+        </form>
+
+        <form action="#" th:attr="action=@{/user}" method="get">
+            <input type="text" th:attr="name=nickname">
+            <input type="submit" value="提交">
+        </form>
+
+        <li th:each="book : ${books}" th:text="${book.title}">default</li>
+
+
+    </table>
+    <hr/>
+    <table>
+        <!--奇数加属性odd 偶数加属性even-->
+        <tr th:each="book,bookStat:${books}" th:class="${bookStat.even}?'odd':'even'">
+            <td th:text="${bookStat.index}">...</td>
+            <td th:text="${book.title}">default</td>
+        </tr>
+    </table>
+    <p th:if="${boolean}">如果 boolean 是 true ，本句话就会显示</p>
+    <p th:unless="${unless}">如果 unless 是 false ，本句话就会显示</p>
+    <p> The message is "[(${msg})]"</p>
+    <p> The message is "[[${msg}]]"</p>
+
+    <div th:switch="${switch}">
+        <p th:case="a">显示a</p>
+        <p th:case="b">显示b</p>
+        <p th:case="c">显示c</p>
+    </div>
+
+    <div th:insert="~{section :: #copy-section}"></div>
+
+    <div th:replace="~{footer :: copy}"></div>
+</body>
+</html>
